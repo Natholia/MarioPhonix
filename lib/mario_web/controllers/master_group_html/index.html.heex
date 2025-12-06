@@ -1,0 +1,13 @@
+<h1>Master Groups</h1>
+
+<a href={~p"/master_groups/new"}>New Group</a>
+
+<ul>
+<%= for g <- @groups do %>
+  <li>
+    <%= g.master_group_name %>
+    <a href={~p"/master_groups/#{g.id}/edit"}>Edit</a>
+    <a data-confirm="Delete?" href={~p"/master_groups/#{g.id}"} data-method="delete">Delete</a>
+  </li>
+<% end %>
+</ul>
