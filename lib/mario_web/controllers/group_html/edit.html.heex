@@ -1,0 +1,17 @@
+<h1>Edit Group</h1>
+
+<.form for={@form} id="group-form" action={~p"/groups/#{@group.id}"} method="put">
+  <.input field={@form[:group_name]} label="Group Name" />
+  <.input field={@form[:commission]} label="commission" />
+  <.input field={@form[:hissa]} label="hissa"  />
+  <.input field={@form[:group_type]} label="group_type"  />
+
+
+<.input type="checkbox" field={@form[:ld_with_hisab]} label="ld_with_hisab"  />
+ <.input field={@form[:limit]} label="limit"  />
+  <%!-- <.input field={@form[:is_net_bal_group]} label="is_net_bal_group"  />
+ <.input field={@form[:is_account]} label="is_account"  />
+<.input field={@form[:is_app_group]} label="is_app_group"  /> --%>
+
+  <.button>Update</.button>
+</.form>

@@ -3,11 +3,10 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>{@page_title || "Adminsssss"}</title>
-<meta name="csrf-token" content={Plug.CSRFProtection.get_csrf_token()} />
+  <title><%= @page_title || "Adminsssss" %></title>
+  <meta name="csrf-token" content={Plug.CSRFProtection.get_csrf_token()} />
 
-  <!-- {@phoenix_live_view_styles}
-  {render_slot(@inner_head)} -->
+<script defer phx-track-static type="text/javascript" src={~p"/assets/app.js"}></script>
 
   <script>
     function toggleSidebar() {
@@ -22,16 +21,19 @@
     class="fixed md:relative z-40 w-64 h-screen bg-white shadow-xl transform -translate-x-full md:translate-x-0 transition-all duration-300">
     <div class="p-5 font-semibold text-xl border-b">Admin Panel</div>
     <nav class="px-4 py-4 space-y-2">
-      <a href="/admin/dashboard" class="flex items-center gap-3 px-3 py-2 rounded-lg hover:bg-gray-200">
+      <a href="/dashboard" class="flex items-center gap-3 px-3 py-2 rounded-lg hover:bg-gray-200">
         <i class="fa-solid fa-chart-line"></i> Dashboard
       </a>
-      <a href="/admin/users" class="flex items-center gap-3 px-3 py-2 rounded-lg hover:bg-gray-200">
+      <a href="/users" class="flex items-center gap-3 px-3 py-2 rounded-lg hover:bg-gray-200">
         <i class="fa-solid fa-users"></i> Users
       </a>
-      <a href="/admin/settings" class="flex items-center gap-3 px-3 py-2 rounded-lg hover:bg-gray-200">
-        <i class="fa-solid fa-gear"></i> Settings
+      <a href="/mastergroups" class="flex items-center gap-3 px-3 py-2 rounded-lg hover:bg-gray-200">
+        <i class="fa-solid fa-gear"></i>Master Group 
       </a>
-         <a href="/logout" class="flex items-center gap-3 px-3 py-2 rounded-lg hover:bg-gray-200">
+      <a href="/groups" class="flex items-center gap-3 px-3 py-2 rounded-lg hover:bg-gray-200">
+        <i class="fa-solid fa-gear"></i>Group 
+      </a>
+      <a href="/logout" class="flex items-center gap-3 px-3 py-2 rounded-lg hover:bg-gray-200">
         <i class="fa-solid fa-gear"></i> Logout
       </a>
     </nav>
@@ -41,15 +43,15 @@
   <div class="flex-1 ml-0 md:ml-64 flex flex-col min-h-screen">
     <header class="sticky top-0 bg-white shadow flex items-center justify-between px-4 py-3">
       <button onclick="toggleSidebar()" class="md:hidden text-xl">☰</button>
-      <h1 class="text-lg font-semibold">{@page_title}</h1>
-      <div class="flex items-center gap-3 text-gray-600"><span> <%= @current_admin.usertype %></span></div>
+      <h1 class="text-lg font-semibold"><%= @page_title %></h1>
+      <div class="flex items-center gap-3 text-gray-600">
+        <span><%= @current_admin.usertype %></span>
+      </div>
     </header>
 
     <main class="p-6">
-      {@inner_content}
+      <%= @inner_content %>
     </main>
   </div>
-
-  <!-- {@phoenix_live_view_scripts} -->
 </body>
 </html>

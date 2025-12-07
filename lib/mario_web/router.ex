@@ -27,9 +27,11 @@ defmodule MarioWeb.Router do
     get "/logout", AdminAuthController, :logout
   end
 
-  scope "/admin", MarioWeb do
+  scope "/", MarioWeb do
     pipe_through [:browser, :require_admin_auth]
     get "/dashboard", AdminDashboardController, :index
-    get "/users", AdminUserController, :index
+    # get "/groupmaster", MasterGroupController, :index
+     resources "/mastergroups", MasterGroupController, except: [:show]
+       resources "groups", GroupController, except: [:show]
   end
 end

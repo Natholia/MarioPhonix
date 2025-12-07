@@ -1,5 +1,5 @@
 
-<a href={~p"/mastergroups/new"} class="btn btn-primary">New Group</a>
+<a href={~p"/groups/new"} class="btn btn-primary">New Group</a>
 
 <table class="table">
   <thead>
@@ -14,11 +14,11 @@
     <%= for g <- @groups do %>
       <tr>
         <td><%= g.id %></td>
-        <td><%= g.master_group_name %></td>
+        <td><%= g.group_name %></td>
         <td>
-          <a href={~p"/mastergroups/#{g.id}/edit"} class="btn btn-sm btn-warning">Edit</a>
+          <a href={~p"/groups/#{g.id}/edit"} class="btn btn-sm btn-warning">Edit</a>
 <.link
-  href={~p"/mastergroups/#{g.id}"}
+  href={~p"/groups/#{g.id}"}
   method="delete"
   data-confirm="Are you sure?"
   class="btn btn-sm btn-danger"

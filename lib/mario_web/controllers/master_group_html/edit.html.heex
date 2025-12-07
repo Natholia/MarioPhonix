@@ -1,6 +1,6 @@
 <h1>Edit Group</h1>
 
-<.form for={@form} id="master-group-form" action={~p"/master_groups/#{@group.id}"} method="put">
+<.form for={@form} id="master-group-form" action={~p"/mastergroups/#{@group.id}"} method="put">
   <.input field={@form[:master_group_name]} label="Group Name" />
   <.input field={@form[:login_id]} label="Login ID" />
   <.input field={@form[:password]} label="Password" type="password" />

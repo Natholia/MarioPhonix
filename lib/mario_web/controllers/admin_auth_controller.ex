@@ -57,7 +57,7 @@ def login(conn, %{"username" => username, "password" => password}) do
         |> put_session(:admin_id, user.id)
         |> put_session(:usertype, user.usertype)
         |> configure_session(renew: true)
-        |> redirect(to: "/admin/dashboard")
+        |> redirect(to: "/dashboard")
       else
         conn
         |> put_flash(:error, "Invalid username or password")

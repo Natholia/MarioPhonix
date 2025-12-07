@@ -6,15 +6,18 @@ defmodule MarioWeb.MasterGroupController do
   alias Mario.MasterGroups
   alias Mario.Models.MasterGroup
 
+   plug :put_layout, html: {MarioWeb.Layouts, :admin}
+
   @spec index(Plug.Conn.t(), any()) :: Plug.Conn.t()
   def index(conn, _params) do
     groups = MasterGroups.list_all()
-    render(conn, :index, groups: groups)
+    render(conn, :index, groups: groups, page_title: "Master Groups")
   end
 
+  @spec new(Plug.Conn.t(), any()) :: Plug.Conn.t()
   def new(conn, _params) do
     changeset = MasterGroup.changeset(%MasterGroup{}, %{})
-    render(conn, :new, form: to_form(changeset))
+    render(conn, :new, form: to_form(changeset), page_title: "New Master Groups")
   end
 
   def create(conn, %{"master_group" => params}) do
@@ -22,7 +25,7 @@ defmodule MarioWeb.MasterGroupController do
       {:ok, _group} ->
         conn
         |> put_flash(:info, "Group Created")
-        |> redirect(to: ~p"/master_groups")
+        |> redirect(to: ~p"/mastergroups")
 
       {:error, changeset} ->
         render(conn, :new, form: to_form(changeset))
@@ -32,7 +35,7 @@ defmodule MarioWeb.MasterGroupController do
   def edit(conn, %{"id" => id}) do
     group = MasterGroups.get!(id)
     changeset = MasterGroup.changeset(group, %{})
-    render(conn, :edit, group: group, form: to_form(changeset))
+    render(conn, :edit, group: group, form: to_form(changeset), page_title: "Modify Master Groups")
   end
 
   def update(conn, %{"id" => id, "master_group" => params}) do
@@ -42,7 +45,7 @@ defmodule MarioWeb.MasterGroupController do
       {:ok, _group} ->
         conn
         |> put_flash(:info, "Updated")
-        |> redirect(to: ~p"/master_groups")
+        |> redirect(to: ~p"/mastergroups")
 
       {:error, changeset} ->
         render(conn, :edit, group: group, form: to_form(changeset))
@@ -55,6 +58,6 @@ defmodule MarioWeb.MasterGroupController do
 
     conn
     |> put_flash(:info, "Deleted")
-    |> redirect(to: ~p"/master_groups")
+    |> redirect(to: ~p"/mastergroups")
   end
 end

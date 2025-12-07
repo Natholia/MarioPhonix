@@ -69,7 +69,7 @@ end
       field :is_app_group, :boolean, default: false
 
       belongs_to :comm_transfer_group, Mario.Models.Group
-      belongs_to :master_group, Mario.Models.MasterGroup
+
 
       timestamps()
     end
@@ -79,8 +79,7 @@ end
       |> cast(attrs, [
         :group_name, :commission, :hissa, :group_type,
         :ld_with_hisab, :limit, :is_net_bal_group,
-        :is_account, :is_app_group, :comm_transfer_group_id,
-        :master_group_id
+        :is_account, :is_app_group, :comm_transfer_group_id
       ])
       |> validate_required([:group_name])
     end
