@@ -1,0 +1,37 @@
+
+<%!-- <a href={~p"/markets/#{@group_id}/new"} class="btn btn-primary">New Market</a> --%>
+
+<table class="table">
+  <thead>
+    <tr>
+      <th>Group Market ID</th>
+      <th>Market ID</th>
+      <th>Market Name</th>
+      <th>Actions</th>
+    </tr>
+  </thead>
+
+  <tbody>
+<%= for {gm, m} <- @markets do %>
+      <tr>
+       <td><%= gm.id %></td>
+        <td><%= gm.group_id %></td>
+        <td><%= m.market_name %></td>
+        <td>
+          <a href={~p"/groupmarkets/#{gm.id}/edit"} class="btn btn-sm btn-warning">Edit</a>
+<%!-- <.link
+  href={~p"/markets/#{gm.id}"}
+  method="delete"
+  data-confirm="Are you sure?"
+  class="btn btn-sm btn-danger"
+>
+  Delete
+</.link> --%>
+
+
+        </td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+<a href={~p"/groups"}>Back</a>

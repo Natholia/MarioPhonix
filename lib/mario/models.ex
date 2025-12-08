@@ -268,7 +268,7 @@ defmodule Customer do
       values: [:normal, :classic],
       default: :normal
 
- field :group_id, :id
+    field :group_id, :id
     belongs_to :group, Mario.Models.Group,
      define_field: false
 
@@ -291,6 +291,154 @@ defmodule Customer do
 end
 
 
+
+
+  # ================================
+  # GroupMarket Schema
+  # ================================
+
+defmodule GroupMarket do
+  use Ecto.Schema
+  import Ecto.Changeset
+
+  schema "group_markets" do
+    belongs_to :group, Mario.Models.Group
+    belongs_to :market, Mario.Models.Market
+
+
+
+
+  field :OpenTimeFrom, :time
+  field :OpenTimeTo, :time
+  field :CloseTimeFrom , :time
+  field :CloseTimeTo, :time
+    field :OpenSingleJodiEndTime , :time
+    field :CloseSingleEndTime , :time
+
+  field :OpenSingleLowerLimit, :decimal
+field :OpenJodiLowerLimit, :decimal
+field :CloseSingleLowerLimit, :decimal
+field :OpenPanaLowerLimit, :decimal
+    field :ClosePanaLowerLimit, :decimal
+    field :Single_Khula, :decimal
+    field :Jodi_Khula, :decimal
+    field :Jodi_Family, :decimal
+    field :Jodi_Cycle, :decimal
+    field :SpPana_Khula, :decimal
+    field :SpPana_Family, :decimal
+    field :SpPana_SP, :decimal
+    field :SpPana_CP, :decimal
+    field :SpPana_Common, :decimal
+    field :SpPana_Motor, :decimal
+    field :SpPana_Chat, :decimal
+    field :SpPana_AbrCut, :decimal
+    field :SpPana_Other, :decimal
+    field :DpPana_Khula, :decimal
+    field :DpPana_Family, :decimal
+    field :DpPana_DP, :decimal
+    field :DpPana_CP, :decimal
+    field :DpPana_Common, :decimal
+    field :DpPana_Motor, :decimal
+    field :DpPana_Other, :decimal
+    field :TpPana_Khula, :decimal
+    field :TpPana_Family, :decimal
+    field :TpPana_TP, :decimal
+    field :TpPana_CP, :decimal
+    field :TpPana_Other, :decimal
+    field :HalfSangam_Khula, :decimal
+    field :HalfSangam_Family, :decimal
+    field :HalfSangam_SP, :decimal
+    field :HalfSangam_DP, :decimal
+    field :HalfSangam_TP, :decimal
+    field :HalfSangam_CP, :decimal
+    field :HalfSangam_Common, :decimal
+    field :HalfSangam_Motor, :decimal
+    field :HalfSangam_Chat, :decimal
+    field :HalfSangam_AbrCut, :decimal
+    field :HalfSangam_Other, :decimal
+    field :FullSangam_Khula, :decimal
+    field :FullSangam_Family, :decimal
+    field :FullSangam_SP, :decimal
+    field :FullSangam_DP, :decimal
+    field :FullSangam_TP, :decimal
+    field :FullSangam_CP, :decimal
+    field :FullSangam_Common, :decimal
+    field :FullSangam_Motor, :decimal
+    field :FullSangam_Chat, :decimal
+    field :FullSangam_AbrCut, :decimal
+    field :FullSangam_Other, :decimal
+
+
+    timestamps()
+  end
+
+  @doc false
+  def changeset(group_market, attrs) do
+    group_market
+    |> cast(attrs, [:group_id, :market_id,
+     :OpenTimeFrom,
+        :OpenTimeTo,
+        :CloseTimeFrom ,
+        :CloseTimeTo,
+        :OpenSingleJodiEndTime ,
+        :CloseSingleEndTime ,
+        :OpenSingleLowerLimit,
+        :OpenJodiLowerLimit,
+        :CloseSingleLowerLimit,
+        :OpenPanaLowerLimit,
+     :ClosePanaLowerLimit,
+     :Single_Khula,
+     :Jodi_Khula,
+     :Jodi_Family,
+     :Jodi_Cycle,
+     :SpPana_Khula,
+     :SpPana_Family,
+     :SpPana_SP,
+     :SpPana_CP,
+     :SpPana_Common,
+     :SpPana_Motor,
+     :SpPana_Chat,
+     :SpPana_AbrCut,
+     :SpPana_Other,
+     :DpPana_Khula,
+     :DpPana_Family,
+     :DpPana_DP,
+     :DpPana_CP,
+     :DpPana_Common,
+     :DpPana_Motor,
+     :DpPana_Other,
+     :TpPana_Khula,
+     :TpPana_Family,
+     :TpPana_TP,
+     :TpPana_CP,
+     :TpPana_Other,
+     :HalfSangam_Khula,
+     :HalfSangam_Family,
+     :HalfSangam_SP,
+     :HalfSangam_DP,
+     :HalfSangam_TP,
+     :HalfSangam_CP,
+     :HalfSangam_Common,
+     :HalfSangam_Motor,
+     :HalfSangam_Chat,
+     :HalfSangam_AbrCut,
+     :HalfSangam_Other,
+     :FullSangam_Khula,
+     :FullSangam_Family,
+     :FullSangam_SP,
+     :FullSangam_DP,
+     :FullSangam_TP,
+     :FullSangam_CP,
+     :FullSangam_Common,
+     :FullSangam_Motor,
+     :FullSangam_Chat,
+     :FullSangam_AbrCut,
+     :FullSangam_Other])
+    |> validate_required([:group_id, :market_id])
+    |> assoc_constraint(:group)
+    |> assoc_constraint(:market)
+  end
+end
 
 
 

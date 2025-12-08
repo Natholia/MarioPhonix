@@ -5,6 +5,7 @@ defmodule MarioWeb.MarketController do
 
   alias Mario.Markets
   alias Mario.Models.Market
+   alias Mario.Groups
 
    plug :put_layout, html: {MarioWeb.Layouts, :admin}
 
@@ -44,7 +45,9 @@ def update(conn, %{"id" => id, "market" => params}) do
   case action do
     :create ->
       case Markets.create(params) do
-        {:ok, _} ->
+        {:ok,market} ->
+           # Insert group_markets rows for ALL markets
+    Mario.Markets.assign_market_to_all_groups(market.id)
           redirect(conn, to: ~p"/markets",
             flash: [info: "Market Created"])
 
@@ -81,4 +84,8 @@ end
     |> put_flash(:info, "Deleted")
     |> redirect(to: ~p"/markets")
   end
+
+
+
+
 end

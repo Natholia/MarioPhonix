@@ -1,6 +1,14 @@
-<h1>New Group</h1>
 
-<.form for={@form} id="group-form" action={~p"/groups"}>
+
+<%= if @group.id > 0 do %>
+  <h1>Modify Group</h1>
+<% else %>
+  <h1>New Group</h1>
+<% end %>
+
+
+
+<.form for={@form} id="group-form" action={~p"/groups/#{@group.id}"} method="put">
   <.input field={@form[:group_name]} label="Group Name" />
   <.input field={@form[:commission]} label="commission" />
   <.input field={@form[:hissa]} label="hissa"  />

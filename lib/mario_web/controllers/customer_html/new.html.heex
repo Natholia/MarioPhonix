@@ -6,6 +6,8 @@
   <h1>New Customer</h1>
 <% end %>
 
+<p><strong>Group:</strong> <%= @group_name %></p>
+
 
 
 
@@ -14,7 +16,7 @@
   <.input field={@form[:customer_name]} label="customer_name" />
 <.input field={@form[:mobile]} label="mobile" />
   <.input field={@form[:email]} label="email" />
-  <.input field={@form[:group_id]} label="group_id" />
+  <.input field={@form[:group_id]}  type="hidden"/>
   <.input field={@form[:is_block ]} label="is_block" />
   <.input field={@form[:is_default]} label="is_default" />
     <%!-- <.input field={@form[:mobile_customer_bid_keyboard_type ]} label="mobile_customer_bid_keyboard_type" /> --%>
@@ -32,4 +34,11 @@
   <.button>Save</.button>
 </.form>
 
-<a href={~p"/customers"}>Back</a>
+
+<.link
+  href={~p"/customer/#{@customer.group_id}"}
+  method="get"  
+  class="btn btn-sm btn-danger">
+  Back
+</.link>
+

@@ -14,43 +14,70 @@ defmodule MarioWeb.GroupController do
     render(conn, :index, groups: groups, page_title: "Groups")
   end
 
-  @spec new(Plug.Conn.t(), any()) :: Plug.Conn.t()
-  def new(conn, _params) do
-    changeset = Group.changeset(%Group{}, %{})
-    render(conn, :new, form: to_form(changeset), page_title: "New Groups")
-  end
-
-  def create(conn, %{"group" => params}) do
-    case Groups.create(params) do
-      {:ok, _group} ->
-        conn
-        |> put_flash(:info, "Group Created")
-        |> redirect(to: ~p"/Groups")
-
-      {:error, changeset} ->
-        render(conn, :new, form: to_form(changeset))
+def edit(conn, %{"id" => id}) do
+  {group, title} =
+    if id == "0" do
+      {%Group{id: 0}, "New Groups"}
+    else
+      {Groups.get!(id), "Modify Groups"}
     end
-  end
 
-  def edit(conn, %{"id" => id}) do
-    group = Groups.get!(id)
-    changeset = Group.changeset(group, %{})
-    render(conn, :edit, group: group, form: to_form(changeset), page_title: "Modify Groups")
-  end
+  changeset = Group.changeset(group, %{})
 
-  def update(conn, %{"id" => id, "group" => params}) do
-    group = Groups.get!(id)
+  render(conn, :new,
+    group: group,
+    form: to_form(changeset),
+    page_title: title
+  )
+end
 
-    case Groups.update(group, params) do
-      {:ok, _group} ->
-        conn
-        |> put_flash(:info, "Updated")
-        |> redirect(to: ~p"/groups")
 
-      {:error, changeset} ->
-        render(conn, :edit, group: group, form: to_form(changeset))
+
+def update(conn, %{"id" => id, "group" => params}) do
+  #  require IEx; IEx.pry()
+  {action, group} =
+    if id == "0" do
+      {:create, %Group{id: 0}}
+    else
+      {:update, Groups.get!(id)}
     end
+
+  case action do
+    :create ->
+      case Groups.create(params) do
+        {:ok,group} ->
+              # Insert group_markets rows for ALL markets
+    Mario.Groups.assign_all_markets_to_group(group.id)
+          redirect(conn, to: ~p"/groups",
+            flash: [info: "Group Created"])
+
+        {:error, changeset} ->
+          render(conn, :new,
+            form: to_form(changeset),
+            group: group,
+            page_title: "New Groups"
+          )
+      end
+
+    :update ->
+      case Groups.update(group, params) do
+        {:ok, _} ->
+          redirect(conn, to: ~p"/groups",
+            flash: [info: "Updated"])
+
+        {:error, changeset} ->
+          render(conn, :new,
+            form: to_form(changeset),
+            group: group,
+            page_title: "Modify Groups"
+          )
+      end
   end
+end
+
+
+
+
 
   def delete(conn, %{"id" => id}) do
     group = Groups.get!(id)

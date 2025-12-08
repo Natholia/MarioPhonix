@@ -1,0 +1,40 @@
+
+
+
+<a href={~p"/customers/#{@group_id}/new"} class="btn btn-primary">New Customer</a>
+
+
+
+<table class="table">
+  <thead>
+    <tr>
+      <th>ID</th>
+      <th>Customer Name</th>
+      <th>Actions</th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <%= for g <- @customers do %>
+      <tr>
+        <td><%= g.id %></td>
+        <td><%= g.customer_name %></td>
+        <td>
+          <a href={~p"/customers/#{g.id}/edit"} class="btn btn-sm btn-warning">Edit</a>
+<.link
+  href={~p"/customers/#{g.id}"}
+  method="delete"
+  data-confirm="Are you sure?"
+  class="btn btn-sm btn-danger"
+>
+  Delete
+</.link>
+
+
+        </td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<a href={~p"/groups"}>Back</a>

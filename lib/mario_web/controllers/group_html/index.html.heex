@@ -1,5 +1,5 @@
 
-<a href={~p"/groups/new"} class="btn btn-primary">New Group</a>
+<a href={~p"/groups/0/edit"} class="btn btn-primary">New Group</a>
 
 <table class="table">
   <thead>
@@ -24,6 +24,24 @@
   class="btn btn-sm btn-danger"
 >
   Delete
+</.link>
+
+
+<.link
+  href={~p"/customer/#{g.id}"}
+  method="get"  
+  class="btn btn-sm btn-danger">
+  Customer
+</.link>
+
+
+
+
+<.link
+  href={~p"/groupmarket/#{g.id}"}
+  method="get"  
+  class="btn btn-sm btn-danger">
+  Market
 </.link>
 
 

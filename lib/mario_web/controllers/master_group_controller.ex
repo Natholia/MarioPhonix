@@ -3,6 +3,7 @@ defmodule MarioWeb.MasterGroupController do
 
   import Phoenix.Component
 
+   alias Mario.Markets
   alias Mario.MasterGroups
   alias Mario.Models.MasterGroup
 
@@ -60,4 +61,10 @@ defmodule MarioWeb.MasterGroupController do
     |> put_flash(:info, "Deleted")
     |> redirect(to: ~p"/mastergroups")
   end
+
+
+
+
+
+
 end
