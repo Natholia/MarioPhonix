@@ -15,13 +15,13 @@ defmodule Mario.Groups do
     |> Repo.insert()
   end
 
-  def update(master_group, attrs) do
-    master_group
+  def update(group, attrs) do
+    group
     |> Group.changeset(attrs)
     |> Repo.update()
   end
 
-  def delete(master_group) do
-    Repo.delete(master_group)
+  def delete(group) do
+    Repo.delete(group)
   end
 end

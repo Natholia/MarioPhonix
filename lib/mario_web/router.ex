@@ -32,6 +32,9 @@ defmodule MarioWeb.Router do
     get "/dashboard", AdminDashboardController, :index
     # get "/groupmaster", MasterGroupController, :index
      resources "/mastergroups", MasterGroupController, except: [:show]
-       resources "groups", GroupController, except: [:show]
+     resources "/groups", GroupController, except: [:show]
+     resources "/markets", MarketController, except: [:show]
+     resources "/customers", CustomerController, except: [:show]
+
   end
 end
