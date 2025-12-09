@@ -3,69 +3,77 @@ defmodule MarioWeb.GroupMarketController do
 
   import Phoenix.Component
 
-    alias Mario.GroupMarket
+
+
+ alias Mario.Models.GroupMarket
+  alias Mario.GroupMarkets
   alias Mario.Groups
-  alias Mario.Models.Group
+
+
 
     plug :put_layout, html: {MarioWeb.Layouts, :admin}
 
 @spec edit(Plug.Conn.t(), map()) :: Plug.Conn.t()
 def edit(conn, %{"id" => id}) do
-  {customer, title} =
-
-      {Customers.get!(id), "Modify Customers"}
-  group=Groups.get!(customer.group_id)
-  changeset = Customer.changeset(customer, %{})
-
+  {groupmarket, title} =
+      {GroupMarkets.get_group_market_with_market!(id), "Modify Group Market"}
+  changeset =GroupMarket.changeset(groupmarket, %{})
   render(conn, :new,
-  group_name: group.group_name,
-    customer: customer,
+    groupmarket: groupmarket,
     form: to_form(changeset),
     page_title: title
   )
 end
 
-# def update(conn, %{"id" => id, "customer" => params}) do
-#   #  require IEx; IEx.pry()
-#   {action, customer} =
-#     if id == "0" do
-#       {:create, %Customer{id: 0}}
-#     else
-#       {:update, Customers.get!(id)}
-#     end
 
-#   case action do
-#     :create ->
-#       case Customers.create(params) do
+
+def update(conn, %{"id" => id, "group_market" => params}) do
+
+
+  groupmarket  = GroupMarkets.get!(id)
+
+      case GroupMarkets.update(groupmarket, params) do
+        {:ok, _} ->
+          redirect(conn,to: ~p"/groupmarket/#{params["group_id"]}",
+            flash: [info: "Updated"])
+
+        {:error, changeset} ->
+          render(conn, :new,
+            form: to_form(changeset),
+            groupmarket: groupmarket,
+            page_title: "Modify Customers"
+          )
+      end
+
+end
+
+
+#   def update(conn, %{"id" => id, "groupmarket" => params}) do
+# require IEx
+# IEx.pry()
+
+
+#   groupmarket = GroupMarkets.get!(id)
+#       case GroupMarkets.update(groupmarket, params) do
 #         {:ok, _} ->
-#           redirect(conn,to: ~p"/customer/#{params["group_id"]}",
-#             flash: [info: "Customer Created"])
 
-#         {:error, changeset} ->
-#           render(conn, :new,
-#             form: to_form(changeset),
-#             customer: customer,
-#             page_title: "New Customers"
-#           )
-#       end
 
-#     :update ->
-#       case Customers.update(customer, params) do
-#         {:ok, _} ->
-#           redirect(conn,to: ~p"/customer/#{params["group_id"]}",
+#           redirect(conn,to: ~p"/groupmarkets/#{params["group_id"]}",
 #             flash: [info: "Updated"])
 
 #         {:error, changeset} ->
 #           render(conn, :new,
 #             form: to_form(changeset),
-#             customer: customer,
+#             customer: groupmarket,
 #             page_title: "Modify Customers"
 #           )
 #       end
 #   end
-# end
 
 
+
+
+    #  redirect(conn,to: ~p"/customer/#{params["group_id"]}",
 
 
 
@@ -74,7 +82,7 @@ end
 def getGroupMarket(conn, %{"id" => group_id}) do
   # Ensure group_id is an integer
   group_id = String.to_integer(group_id)
- markets = GroupMarket.list_markets_by_group(group_id)
+ markets = GroupMarkets.list_markets_by_group(group_id)
 
 group=Groups.get!(group_id)
 

@@ -1,15 +1,28 @@
 
 
-<% if @market.id > 0 do %>
+<% if @groupmarket.id > 0 do %>
 <h1>Modify Market</h1>
 <% else %>
 <h1>New Market</h1>
-<% end %>
+<% end %> 
+
+
+
+ <p><strong>Group:</strong> <%= @groupmarket.group.group_name %></p>
+
+
+
+<p><strong>Market:</strong> <%= @groupmarket.market.market_name %></p>
+
+
+
+
 
 <%!-- <.form for={@form} id="market-form" action={~p"/markets"}> --%>
-<.form for={@form} id="market-form" action={~p"/markets/#{@market.id}"} method="put">
-  <.input field={@form[:market_name]} label="Market Name" />
-<.input field={@form[:live_url]} label="live_url" />
+<.form for={@form} id="groupmarket-form" action={~p"/groupmarkets/#{@groupmarket.id}"} method="put">
+
+ <.input type="hidden" field={@form[:market_id]} />
+ <.input type="hidden" field={@form[:group_id]} />
   <.input type="time" field={@form[:OpenTimeFrom]} label="OpenTimeFrom" />
   <.input type="time" field={@form[:OpenTimeTo]} label="OpenTimeTo" />
   <.input type="time" field={@form[:CloseTimeFrom ]} label="CloseTimeFrom" />
@@ -68,7 +81,8 @@
     <.input field={@form[:FullSangam_Chat]} label="FullSangam_Chat" />
     <.input field={@form[:FullSangam_AbrCut]} label="FullSangam_AbrCut" />
     <.input field={@form[:FullSangam_Other]} label="FullSangam_Other" />
-     <.input field={@form[:aliasname]} label="aliasname" />
+ 
+ 
 
   <.button>Save</.button>
 </.form>

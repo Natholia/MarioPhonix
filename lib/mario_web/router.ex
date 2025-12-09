@@ -36,7 +36,11 @@ defmodule MarioWeb.Router do
 
      resources "/markets", MarketController, except: [:show]
 
+          resources "/groupmarkets", GroupMarketController, except: [:show]
      get "/groupmarket/:id", GroupMarketController, :getGroupMarket
+# get "/groupmarkets/:id/edit", GroupMarketController, :edit
+# put "/groupmarket/:id", GroupMarketController, :update
+
 get "/groupmarkets/:id/new", GroupMarketController, :new
 
      resources "/customers", CustomerController, except: [:show]

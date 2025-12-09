@@ -1,4 +1,4 @@
-defmodule Mario.GroupMarket do
+defmodule Mario.GroupMarkets do
   import Ecto.Query
   alias Mario.Repo
   alias Mario.Models.GroupMarket
@@ -26,8 +26,12 @@ defmodule Mario.GroupMarket do
   end
 
 
-
-
+def get_group_market_with_market!(id) do
+  GroupMarket
+  |> Repo.get!(id)
+  |> Repo.preload(:market)
+  |> Repo.preload(:group)
+end
 
 def list_markets_by_group(group_id) do
   import Ecto.Query
