@@ -1,0 +1,76 @@
+
+
+<% if @market.id > 0 do %>
+<h1>Modify Market</h1>
+<% else %>
+<h1>New Market</h1>
+<% end %>
+
+<%!-- <.form for={@form} id="market-form" action={~p"/markets"}> --%>
+<.form for={@form} id="market-form" action={~p"/markets/#{@market.id}"} method="put">
+  <.input field={@form[:market_name]} label="Market Name" />
+<.input field={@form[:live_url]} label="live_url" />
+  <.input type="time" field={@form[:OpenTimeFrom]} label="OpenTimeFrom" />
+  <.input type="time" field={@form[:OpenTimeTo]} label="OpenTimeTo" />
+  <.input type="time" field={@form[:CloseTimeFrom ]} label="CloseTimeFrom" />
+  <.input type="time" field={@form[:CloseTimeTo]} label="CloseTimeTo" />
+    <.input type="time" field={@form[:OpenSingleJodiEndTime ]} label="OpenSingleJodiEndTime" />
+    <.input type="time" field={@form[:CloseSingleEndTime ]} label="CloseSingleEndTime" />
+  <.input field={@form[:OpenSingleLowerLimit]} label="OpenSingleLowerLimit" />
+<.input field={@form[:OpenJodiLowerLimit]} label="OpenJodiLowerLimit" />
+<.input field={@form[:CloseSingleLowerLimit]} label="CloseSingleLowerLimit" />
+<.input field={@form[:OpenPanaLowerLimit]} label="OpenPanaLowerLimit" />
+    <.input field={@form[:ClosePanaLowerLimit]} label="ClosePanaLowerLimit" />
+    <.input field={@form[:Single_Khula]} label="Single_Khula" />
+    <.input field={@form[:Jodi_Khula]} label="Jodi_Khula" />
+    <.input field={@form[:Jodi_Family]} label="Jodi_Family" />
+    <.input field={@form[:Jodi_Cycle]} label="Jodi_Cycle" />
+    <.input field={@form[:SpPana_Khula]} label="SpPana_Khula" />
+    <.input field={@form[:SpPana_Family]} label="SpPana_Family" />
+    <.input field={@form[:SpPana_SP]} label="SpPana_SP" />
+    <.input field={@form[:SpPana_CP]} label="SpPana_CP" />
+    <.input field={@form[:SpPana_Common]} label="SpPana_Common" />
+    <.input field={@form[:SpPana_Motor]} label="SpPana_Motor" />
+    <.input field={@form[:SpPana_Chat]} label="SpPana_Chat" />
+    <.input field={@form[:SpPana_AbrCut]} label="SpPana_AbrCut" />
+    <.input field={@form[:SpPana_Other]} label="SpPana_Other" />
+    <.input field={@form[:DpPana_Khula]} label="DpPana_Khula" />
+    <.input field={@form[:DpPana_Family]} label="DpPana_Family" />
+    <.input field={@form[:DpPana_DP]} label="DpPana_DP" />
+    <.input field={@form[:DpPana_CP]} label="DpPana_CP" />
+    <.input field={@form[:DpPana_Common]} label="DpPana_Common" />
+    <.input field={@form[:DpPana_Motor]} label="DpPana_Motor" />
+    <.input field={@form[:DpPana_Other]} label="DpPana_Other" />
+    <.input field={@form[:TpPana_Khula]} label="TpPana_Khula" />
+    <.input field={@form[:TpPana_Family]} label="TpPana_Family" />
+    <.input field={@form[:TpPana_TP]} label="TpPana_TP" />
+    <.input field={@form[:TpPana_CP]} label="TpPana_CP" />
+    <.input field={@form[:TpPana_Other]} label="TpPana_Other" />
+    <.input field={@form[:HalfSangam_Khula]} label="HalfSangam_Khula" />
+    <.input field={@form[:HalfSangam_Family]} label="HalfSangam_Family" />
+    <.input field={@form[:HalfSangam_SP]} label="HalfSangam_SP" />
+    <.input field={@form[:HalfSangam_DP]} label="HalfSangam_DP" />
+    <.input field={@form[:HalfSangam_TP]} label="HalfSangam_TP" />
+    <.input field={@form[:HalfSangam_CP]} label="HalfSangam_CP" />
+    <.input field={@form[:HalfSangam_Common]} label="HalfSangam_Common" />
+    <.input field={@form[:HalfSangam_Motor]} label="HalfSangam_Motor" />
+    <.input field={@form[:HalfSangam_Chat]} label="HalfSangam_Chat" />
+    <.input field={@form[:HalfSangam_AbrCut]} label="HalfSangam_AbrCut" />
+    <.input field={@form[:HalfSangam_Other]} label="HalfSangam_Other" />
+    <.input field={@form[:FullSangam_Khula]} label="FullSangam_Khula" />
+    <.input field={@form[:FullSangam_Family]} label="FullSangam_Family" />
+    <.input field={@form[:FullSangam_SP]} label="FullSangam_SP" />
+    <.input field={@form[:FullSangam_DP]} label="FullSangam_DP" />
+    <.input field={@form[:FullSangam_TP]} label="FullSangam_TP" />
+    <.input field={@form[:FullSangam_CP]} label="FullSangam_CP" />
+    <.input field={@form[:FullSangam_Common]} label="FullSangam_Common" />
+    <.input field={@form[:FullSangam_Motor]} label="FullSangam_Motor" />
+    <.input field={@form[:FullSangam_Chat]} label="FullSangam_Chat" />
+    <.input field={@form[:FullSangam_AbrCut]} label="FullSangam_AbrCut" />
+    <.input field={@form[:FullSangam_Other]} label="FullSangam_Other" />
+     <.input field={@form[:aliasname]} label="aliasname" />
+
+  <.button>Save</.button>
+</.form>
+
+<a href={~p"/markets"}>Back</a>

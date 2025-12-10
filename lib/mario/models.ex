@@ -443,3 +443,38 @@ end
 
 
 end
+
+
+
+
+
+
+
+
+  # ================================
+  # Result Schema
+  # ================================
+
+
+defmodule Mario.Models.Result do
+  use Ecto.Schema
+  import Ecto.Changeset
+  alias Mario.Models.Market
+  schema "results" do
+    belongs_to :market, Market
+    field :result_date, :date
+    field :open, :string
+    field :close, :string
+    timestamps()
+  end
+
+  @doc false
+  def changeset(result, attrs) do
+    result
+    |> cast(attrs, [:market_id, :result_date, :open, :close])
+    |> validate_required([:market_id, :result_date])
+    |> unique_constraint([:market_id, :result_date],
+         name: :results_market_id_result_date_index
+       )
+  end
+end

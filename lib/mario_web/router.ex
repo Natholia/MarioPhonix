@@ -47,5 +47,10 @@ get "/groupmarkets/:id/new", GroupMarketController, :new
     get "/customer/:id", CustomerController, :getGroupCustomer
 get "/customers/:id/new", CustomerController, :new
 
+
+     resources "/results", ResultController, except: [:show]
+
+
+
   end
 end
