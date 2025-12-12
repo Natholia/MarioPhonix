@@ -41,7 +41,9 @@
         <i class="fa-solid fa-gear"></i>Customer
       </a>
 
-      
+         <a href="/bids" class="flex items-center gap-3 px-3 py-2 rounded-lg hover:bg-gray-200">
+        <i class="fa-solid fa-gear"></i>Bid 
+      </a>
       
          <a href="/results" class="flex items-center gap-3 px-3 py-2 rounded-lg hover:bg-gray-200">
         <i class="fa-solid fa-gear"></i>Result
@@ -50,6 +52,15 @@
       <a href="/logout" class="flex items-center gap-3 px-3 py-2 rounded-lg hover:bg-gray-200">
         <i class="fa-solid fa-gear"></i> Logout
       </a>
+
+
+
+
+
+
+
+
+
     </nav>
   </aside>
 
@@ -57,9 +68,10 @@
   <div class="flex-1 ml-0 md:ml-64 flex flex-col min-h-screen">
     <header class="sticky top-0 bg-white shadow flex items-center justify-between px-4 py-3">
       <button onclick="toggleSidebar()" class="md:hidden text-xl">☰</button>
-      <h1 class="text-lg font-semibold"><%= @page_title %></h1>
+    <h1 class="text-lg font-semibold"><%= assigns[:page_title] || "Dashboard" %></h1>
+
       <div class="flex items-center gap-3 text-gray-600">
-        <span><%= @current_admin.usertype %></span>
+        <%= if @current_admin, do: @current_admin.usertype, else: "Guest" %>
       </div>
     </header>
 

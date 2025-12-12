@@ -478,3 +478,81 @@ defmodule Mario.Models.Result do
        )
   end
 end
+
+
+
+
+
+
+
+
+
+
+  # ================================
+  # Bids Schema
+  # ================================
+
+    defmodule Mario.Models.Bid do
+use Ecto.Schema
+  import Ecto.Changeset
+
+  schema "bids" do
+    field :message_id, :string
+    field :transaction_no, :integer
+    field :in_message, :string
+    field :out_message, :string
+    field :name, :string
+    field :mobile_no, :string
+
+    field :date, :naive_datetime
+    field :result_date, :naive_datetime
+
+    field :market, :string
+    field :is_deleted, :boolean, default: false
+
+    field :customer_id, :integer
+    field :group_id, :integer
+    field :group_market_id, :integer
+
+    field :result_type, :integer, default: 1
+    field :out_transaction_type, :string
+
+    field :message_receive_time, :naive_datetime
+    field :message_responce_time, :naive_datetime
+
+    field :colud_chat_id, :string
+    field :channel_id, :string
+
+    timestamps()
+  end
+
+  @doc """
+  All fields are optional. No required validations.
+  Allows inserting only webhook essentials.
+  """
+  def changeset(bid, attrs) do
+    bid
+    |> cast(attrs, [
+      :message_id,
+      :transaction_no,
+      :in_message,
+      :out_message,
+      :name,
+      :mobile_no,
+      :date,
+      :result_date,
+      :market,
+      :is_deleted,
+      :customer_id,
+      :group_id,
+      :group_market_id,
+      :result_type,
+      :out_transaction_type,
+      :message_receive_time,
+      :message_responce_time,
+      :colud_chat_id,
+      :channel_id
+    ])
+  end
+
+end

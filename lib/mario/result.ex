@@ -14,68 +14,49 @@ defmodule Mario.Results do
     |> Repo.all()
   end
 
-  # CREATE or UPDATE OPEN
-  def save_open(market_id, open) do
-    today = Date.utc_today()
 
-    result =
-      Repo.one(
-        from r in Result,
-          where: r.market_id == ^market_id and r.result_date == ^today
-      )
+  def save_open(market_id, open, date) do
+  result =
+    Repo.one(
+      from r in Result,
+        where: r.market_id == ^market_id and r.result_date == ^date
+    )
 
-    case result do
-      nil ->
-        Repo.insert(%Result{
-          market_id: market_id,
-          result_date: today,
-          open: open
-        })
-
-      r ->
-        r
-        |> Result.changeset(%{open: open})
-        |> Repo.update()
-    end
-  end
-
-  # UPDATE CLOSE (must exist)
-  def save_close(market_id, close) do
-    today = Date.utc_today()
-
-    result =
-      Repo.get_by!(Result, market_id: market_id, result_date: today)
-
-    result
-    |> Result.changeset(%{close: close})
-    |> Repo.update()
-  end
-
-  # DELETE OPEN
-def delete_open(market_id) do
-  today = Date.utc_today()
-
-  case Repo.get_by(Result, market_id: market_id, result_date: today) do
+  case result do
     nil ->
-      {:error, :not_found}
+      Repo.insert(%Result{market_id: market_id, result_date: date, open: open})
 
-    result ->
-      Repo.delete(result)
+    r ->
+      r
+      |> Result.changeset(%{open: open})
+      |> Repo.update()
+  end
+end
+
+def save_close(market_id, close, date) do
+  result =
+    Repo.get_by!(Result, market_id: market_id, result_date: date)
+
+  result
+  |> Result.changeset(%{close: close})
+  |> Repo.update()
+end
+
+def delete_open(market_id, date) do
+  case Repo.get_by(Result, market_id: market_id, result_date: date) do
+    nil -> {:error, :not_found}
+    r -> Repo.delete(r)
+  end
+end
+
+def delete_close(market_id, date) do
+  case Repo.get_by(Result, market_id: market_id, result_date: date) do
+    nil -> {:error, :not_found}
+    r -> r |> Result.changeset(%{close: nil}) |> Repo.update()
   end
 end
 
 
 
-  # DELETE CLOSE
-  def delete_close(market_id) do
-    today = Date.utc_today()
 
-    case Repo.get_by(Result, market_id: market_id, result_date: today) do
-      nil -> {:error, :not_found}
-      r ->
-        r
-        |> Result.changeset(%{close: nil})
-        |> Repo.update()
-    end
-  end
 end

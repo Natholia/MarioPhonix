@@ -1,0 +1,24 @@
+
+
+
+
+<table class="table">
+  <thead>
+    <tr>
+      <th>ID</th>
+      <th>Bid Name</th>
+      <th>Actions</th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <%= for g <- @bids do %>
+      <tr>
+        <td><%= g.id %></td>
+        <td><%= g.in_message %></td>
+       
+       
+      </tr>
+    <% end %>
+  </tbody>
+</table>
