@@ -47,10 +47,13 @@ get "/groupmarkets/:id/new", GroupMarketController, :new
     get "/customer/:id", CustomerController, :getGroupCustomer
 get "/customers/:id/new", CustomerController, :new
 
+get "/results", ResultController, :index
 
-     resources "/results", ResultController, except: [:show]
+put "/results/open/:id", ResultController, :update_open
+put "/results/close/:id", ResultController, :update_close
 
-
+post "/results/delete_open/:id", ResultController, :delete_open
+post "/results/delete_close/:id", ResultController, :delete_close
 
   end
 end

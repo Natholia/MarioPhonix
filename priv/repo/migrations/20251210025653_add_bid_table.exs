@@ -13,7 +13,6 @@ defmodule Mario.Repo.Migrations.AddBidsTable do
       add :result_date, :naive_datetime
 
       add :market, :string
-
       add :is_deleted, :boolean, default: false
 
       add :customer_id, :integer

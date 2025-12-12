@@ -1,87 +1,82 @@
-<div class="p-4">
+<h2 class="text-xl font-bold mb-4">Results for <%= @date %></h2>
 
-  <h2 class="text-xl font-semibold mb-4">Result</h2>
 
-  <form method="get" action="/results" class="mb-4">
-    <label class="font-medium">Date</label>
-    <input type="date" name="date"
-           value={@date}
-           class="border rounded p-1 ml-2" />
-    <button class="ml-2 bg-blue-500 text-white px-3 py-1 rounded">
-      Load
-    </button>
-  </form>
+<table class="table-auto w-full border">
+  <thead>
+    <tr class="bg-gray-200">
+      <th class="border p-2">Market</th>
+      <th class="border p-2">Open</th>
+      <th class="border p-2">Close</th>
+    </tr>
+  </thead>
 
-  <table class="w-full border-collapse border border-gray-300">
-    <thead>
-      <tr class="bg-blue-200">
-        <th class="p-2 border">Sr</th>
-        <th class="p-2 border">Market</th>
-        <th class="p-2 border">Open</th>
-        <th class="p-2 border">Close</th>
-        <th class="p-2 border">Action</th>
+  <tbody>
+    <%= for r <- @rows do %>
+    <%!-- <pre><%= inspect(r.result, pretty: true) %></pre> --%>
+      <tr>
+        <td class="border p-2"><%= r.market.market_name %></td>
+
+        <!-- OPEN -->
+        <td class="border p-2">
+   <form action={"/results/open/#{r.market.id}"} method="post" class="flex gap-2">
+  <input type="hidden" name="_method" value="put" />
+  <input type="hidden" name="_csrf_token" value={Plug.CSRFProtection.get_csrf_token()} />
+
+  <input type="text"
+         name="open"
+         value={r.result && r.result.open || ""}
+         class="border rounded p-1 w-20 text-center" />
+
+ <%= if r.result==nil ||r.result.open==nil do %>
+  <button class="bg-blue-600 text-white px-2 rounded">Save</button>
+    <% end %>
+
+</form>
+
+
+
+          <%= if r.result && r.result.open do %>
+        <form action={"/results/delete_open/#{r.market.id}"} method="post">
+  <input type="hidden" name="_csrf_token" value={Plug.CSRFProtection.get_csrf_token()} />
+  <button class="bg-red-600 text-white px-2 rounded">Delete</button>
+</form>
+
+
+
+          <% end %>
+
+        </td>
+
+        <!-- CLOSE -->
+        <td class="border p-2">
+          <%= if r.result && r.result.open do %>
+          <form action={"/results/close/#{r.market.id}"} method="post" class="flex gap-2 justify-center">
+  <input type="hidden" name="_method" value="put">
+  <input type="hidden" name="_csrf_token" value={Plug.CSRFProtection.get_csrf_token()}>
+
+  <input type="text"
+         name="close"
+         value={r.result && r.result.close || ""}
+         class="border rounded p-1 w-20 text-center" />
+
+  <%= if r.result && r.result.close == nil and r.result.close != "" do %>
+   
+    <button class="bg-green-200 px-2 rounded">Save</button>
+  <% end %>
+</form>
+
+
+            <%= if r.result && r.result.close do %>
+              <form action={"/results/delete_close/#{r.market.id}"} method="post" class="mt-2">
+                <input type="hidden" name="_csrf_token" value={Plug.CSRFProtection.get_csrf_token()} />
+                <button class="bg-red-600 text-white px-2 rounded">Delete</button>
+              </form>
+            <% end %>
+          <% else %>
+            <span class="text-gray-400">Enter OPEN first</span>
+          <% end %>
+        </td>
       </tr>
-    </thead>
-
-    <tbody>
-      <%= for {r, idx} <- Enum.with_index(@results, 1) do %>
-        <tr class={if rem(idx,2)==0, do: "bg-purple-50", else: ""}>
-
-          <td class="border p-2 text-center"><%= idx %></td>
-          <td class="border p-2 font-medium"><%= r.market.market_name %></td>
-
-          <!-- OPEN -->
-          <td class="border p-2 text-center">
-            <form action={"/results/#{r.id}"} method="post" class="flex gap-2 justify-center">
-              <input type="hidden" name="_method" value="put">
-
-              <input type="text"
-                     name="open"
-                     value={r.open}
-                     class="border rounded p-1 w-20 text-center" />
-
-              <button formaction={"/results/delete_open/#{r.id}"}
-                      formmethod="post"
-                      class="p-1 bg-red-100 border rounded">
-                🗑️
-              </button>
-
-              <input type="hidden" name="close" value={r.close}>
-            </form>
-          </td>
-
-          <!-- CLOSE -->
-          <td class="border p-2 text-center">
-            <form action={"/results/#{r.id}"} method="post" class="flex gap-2 justify-center">
-              <input type="hidden" name="_method" value="put">
-
-              <input type="text"
-                     name="close"
-                     value={r.close}
-                     class="border rounded p-1 w-20 text-center" />
-
-              <button formaction={"/results/delete_close/#{r.id}"}
-                      formmethod="post"
-                      class="p-1 bg-red-100 border rounded">
-                🗑️
-              </button>
-
-              <input type="hidden" name="open" value={r.open}>
-            </form>
-          </td>
-
-          <!-- SAVE -->
-          <td class="border p-2 text-center">
-            <form action={"/results/#{r.id}"} method="post">
-              <input type="hidden" name="_method" value="put">
-              <input type="hidden" name="open" value={r.open}>
-              <input type="hidden" name="close" value={r.close}>
-              <button class="bg-yellow-200 px-4 py-1 rounded">Save</button>
-            </form>
-          </td>
-
-        </tr>
-      <% end %>
-    </tbody>
-  </table>
-</div>
+    <% end %>
+  </tbody>
+</table>
